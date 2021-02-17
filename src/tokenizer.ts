@@ -26,7 +26,7 @@ type CodePoint = string;
  * tokens.
  * 
  */
-class Tokenizer {
+class Tokenizer implements Iterator<Token> {
 
     private chunk : Iterator<CodePoint>;
     private codepoint: IteratorResult<CodePoint>;
@@ -60,19 +60,20 @@ class Tokenizer {
                     if (this._escaped) {
                         buffer.push(value);
                         this._escaped = false;
-                        ({ done, value }  = this.chunk.next());
-                    } else if (this.codepoint.value === this.escape) {
+                    } else if (value === this.escape) {
                         this._escaped = true;
-                        ({ done, value }  = this.chunk.next());
-                    } else if (this.operators.has(this.codepoint.value)) {
-                        this.codepoint = { done, value };                                                
-                        done = true;
+                    } else if (this.operators.has(value)) {
                         this._current = new Token(TokenType.CHAR_SEQUENCE, buffer.join(''));
+                        break;
                     } else {
                         buffer.push(value);
-                        ({ done, value }  = this.chunk.next());
                     }
-                }    
+                    ({ done, value }  = this.chunk.next());
+                }   
+                this.codepoint = { done, value };                                                
+                if (done) {
+                    this._current = new Token(TokenType.CHAR_SEQUENCE, buffer.join(''));
+                } 
             }            
         } else {
             this._current = undefined;
@@ -85,11 +86,19 @@ class Tokenizer {
         return result as IteratorResult<Token>;
     }
 
-    static fromString(codepoints : string, escape: string, operators : Set<CodePoint>) : Iterable<Token> {
+
+}
+
+abstract class Tokens implements Iterable<Token> {
+
+    abstract [Symbol.iterator]() : Iterator<Token>; 
+
+    static fromString(codepoints : string, escape: string, operators : Set<CodePoint>) : Tokens {
         return {
             [Symbol.iterator] : () => new Tokenizer(codepoints[Symbol.iterator](), escape, operators)
         };
     }
 }
 
-export { TokenType, Token, Tokenizer };
+
+export { TokenType, Token, Tokenizer, Tokens };

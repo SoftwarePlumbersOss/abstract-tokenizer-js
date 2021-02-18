@@ -16,6 +16,7 @@ build:
   artifacts:
     paths:
       - .npmrc
+      - dist
   script:
     - echo ${CI_PROJECT_DIR}
     - npm set registry https://nexus.softwareplumbers.com/repository/npmjs-public/  
@@ -33,6 +34,5 @@ publish:
     - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
   script:
     - npm version --no-git-tag-version ${CI_COMMIT_REF_NAME} 
-    - npm run build
     - npm publish
    

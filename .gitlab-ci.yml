@@ -24,6 +24,7 @@ build:
     - cp ~/.npmrc .npmrc
     - cat .npmrc
     - npm ci --cache .npm --prefer-offline
+    - npm run build
     - npm test
   
 publish:

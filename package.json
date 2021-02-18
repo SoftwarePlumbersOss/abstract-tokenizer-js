@@ -4,6 +4,9 @@
   "description": "Simple utility for tokenizing a stream of operators and strings",
   "main": "dist/tokenizer",
   "types": "dist",
+  "files": [
+      "dist/**/*"
+  ],
   "scripts": {
     "test": "jest",
     "build": "tsc"

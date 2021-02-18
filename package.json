@@ -2,8 +2,8 @@
   "name": "abstract-tokenizer",
   "version": "0.0.7",
   "description": "Simple utility for tokenizing a stream of operators and strings",
-  "main": "dist/tokenizer",
-  "types": "dist",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],

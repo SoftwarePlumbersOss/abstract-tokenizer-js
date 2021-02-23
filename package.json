@@ -1,5 +1,5 @@
 {
-  "name": "abstract-tokenizer",
+  "name": "@softwareplumber/abstract-tokenizer",
   "version": "0.0.7",
   "description": "Simple utility for tokenizing a stream of operators and strings",
   "main": "dist/index.js",

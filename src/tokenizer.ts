@@ -1,3 +1,4 @@
+import { IImmutableSet } from '@softwareplumber/immutable-set';
 
 enum TokenType { OPERATOR, CHAR_SEQUENCE }
 
@@ -34,9 +35,9 @@ class Tokenizer implements Iterator<Token> {
     private _escaped: boolean;
 
     readonly escape: string;
-    readonly operators: Set<CodePoint>;
+    readonly operators: IImmutableSet<CodePoint>;
 
-    constructor(chunk: Iterator<CodePoint>, escape: string, operators : Set<CodePoint>) {
+    constructor(chunk: Iterator<CodePoint>, escape: string, operators : IImmutableSet<CodePoint>) {
         this.chunk = chunk;
         this.escape = escape;
         this.operators = operators;

@@ -37,7 +37,7 @@ class Tokenizer implements Iterator<Token> {
     readonly escape: string;
     readonly operators: IImmutableSet<CodePoint>;
 
-    constructor(chunk: Iterator<CodePoint>, escape: string, operators : IImmutableSet<CodePoint>) {
+    constructor(chunk: Iterator<CodePoint>, escape: string, operators : IImmutableSet<CodePoint> | Set<CodePoint>) {
         this.chunk = chunk;
         this.escape = escape;
         this.operators = operators;
@@ -94,7 +94,7 @@ abstract class Tokens implements Iterable<Token> {
 
     abstract [Symbol.iterator]() : Iterator<Token>; 
 
-    static fromString(codepoints : string, escape: string, operators : Set<CodePoint>) : Tokens {
+    static fromString(codepoints : string, escape: string, operators : IImmutableSet<CodePoint> | Set<CodePoint> ) : Tokens {
         return {
             [Symbol.iterator] : () => new Tokenizer(codepoints[Symbol.iterator](), escape, operators)
         };
